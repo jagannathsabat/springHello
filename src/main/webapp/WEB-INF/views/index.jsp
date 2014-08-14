@@ -11,8 +11,22 @@
 Hello World!
 <c:url value="/user/register" var="registerUrl"/>
 <c:url value="/user/login" var="loginUrl"/>
-<a href="${registerUrl}">User Register</a>
-<a href="${loginUrl}">User Login</a>
+<c:url value="/product/productHome" var="productUrl"/>
+<c:url value="/static/product.html" var="productHtmlUrl"/>
+<a href="${registerUrl}">User Register</a><br/>
+<a href="${loginUrl}">User Login</a><br/>
+<a href="${productUrl}">Product Page</a><br/>
+<a href="${productHtmlUrl}">Product html Page</a><br/>
 
+<c:choose>
+	<c:when test="${not empty currentUser}">
+		Welcome, ${currentUser.username}
+		<c:url value="/user/logout" var="logoutUrl"/>
+		<a href="${logoutUrl}">Logout</a>
+	</c:when>
+	<c:otherwise>
+		Not logged in
+	</c:otherwise>
+</c:choose>	
 </body>
 </html>

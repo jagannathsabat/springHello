@@ -1,4 +1,4 @@
-package com.spring.hello.mvc;
+package com.spring.hello.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +15,6 @@ public class HelloController {
 	@RequestMapping(method=RequestMethod.GET)
 	public String hello(){
 		logger.debug("GET came to /");
-		return "index";
+		return "index.jsp";
 	}
 }

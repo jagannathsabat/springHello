@@ -2,19 +2,25 @@ package com.spring.hello.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="user")
 public class User implements Serializable {
 	
+	@Transient
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	private Integer id;
 	
+	@Column(nullable=false, unique=true)
 	private String username;
 	private String password;
 	

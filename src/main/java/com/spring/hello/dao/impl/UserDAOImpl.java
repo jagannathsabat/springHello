@@ -2,8 +2,11 @@ package com.spring.hello.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.impl.CriteriaImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,26 +38,34 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void delete(User user) {
-		// TODO Auto-generated method stub
-		
+		getCurrentSession().delete(user);
 	}
 
 	@Override
 	public User update(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		getCurrentSession().update(user);
+		return user;
 	}
 
 	@Override
 	public User getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (User) getCurrentSession().load(User.class, new Integer(id));
 	}
 
 	@Override
 	public List<User> list() {
-		// TODO Auto-generated method stub
-		return null;
+		return getCurrentSession().createQuery("from User").list();
+	}
+
+	@Override
+	public User getByUsername(String username) {
+		logger.debug("Going to retrive user by username: {}", username);
+		Criteria criteria = getCurrentSession().createCriteria(User.class);
+		criteria.add(Restrictions.eq("username", username));
+		User user = (User) criteria.uniqueResult();
+		
+		logger.debug("user found: {}", user);
+		return user;
 	}
 
 }

@@ -41,9 +41,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public List<User> list() {
-		// TODO Auto-generated method stub
-		return null;
+		return userDAO.list();
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public User getByUsername(String username) {
+		return userDAO.getByUsername(username);
 	}
 
 }
